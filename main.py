@@ -5,8 +5,8 @@ def main():
     df = pd.read_csv("./data/Intercept List 06_10_2021.csv")
     df["Date Intercepted"] = pd.to_datetime(df["Date Intercepted"], dayfirst=True)
     grams = df.groupby(df['Date Intercepted'].dt.month)['Weight (in grams)'].sum()
-    n_months = grams.index.tolist()
     result = [g / 1_000_000 for g in grams]
+    n_months = grams.index.tolist()
     months = month_list(n_months)
 
     plt.bar(months, result, color='#336622')
