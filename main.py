@@ -9,7 +9,7 @@ def main():
     result = [g / 1_000_000 for g in grams]
     months = month_list(n_months)
 
-    plt.bar(months, result, color='green')
+    plt.bar(months, result, color='#336622')
 
     plt.ylabel("Tonnes")
     plt.title("Monthly Intercepts 2021")
