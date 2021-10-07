@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def main():
-    df = pd.read_csv("./data/Intercept List 06_10_2021.csv")
+    df = pd.read_csv("./data/Intercept_2021.csv")
     df["Date Intercepted"] = pd.to_datetime(df["Date Intercepted"], dayfirst=True)
     grams = df.groupby(df['Date Intercepted'].dt.month)['Weight (in grams)'].sum()
     result = [g / 1_000_000 for g in grams]
