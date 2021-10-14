@@ -9,7 +9,7 @@ def main():
     n_months = grams.index.tolist()
     months = month_list(n_months)
 
-    plt.bar(months, result, color='#336622')
+    plt.bar(months, result, color='#335522')
 
     plt.ylabel("Tonnes")
     plt.title("Monthly Intercepts 2021")
