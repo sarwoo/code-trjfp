@@ -4,12 +4,12 @@ class PDF(FPDF):
     # Extend the header
     def header(self):
         # logo
-        self.image('assets/banner-report.png', 0, 0, 210)
+        self.image('assets/TRJFP-Logistics-report-header.png', 0, 0, 210)
         # font
         self.set_font('helvetica', 'B', 20)
         # Padding
-        self.ln(28)
-        self.cell(56)
+        self.ln(24)
+        self.cell(59)
         # title
         
         self.cell(0, 10, 'September 2021', border=False, ln=1, align='L')
