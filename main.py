@@ -32,6 +32,8 @@ def print_table(data, month):
     x.field_names = ['Month', 'Weight KG', 'Meals saved']
     for i, row in enumerate(data):
         x.add_row([month[i], f'{int(row/1000):,}', f'{int(row/420):,}'])
+    x.add_row(['', '', ''])
+    x.add_row(['Tot', f'{int(sum(data)/1000):,}', f'{int(sum(data)/420):,}'])
     print(x)
 
 def month_list_names(month_nums):
