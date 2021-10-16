@@ -4,12 +4,12 @@ class PDF(FPDF):
     # Extend the header
     def header(self):
         # logo
-        self.image('assets/TRJFP-Logistics-report-header.png', 0, 0, 210)
+        self.image('assets/banner-report.png', 0, 0, 210)
         # font
         self.set_font('helvetica', 'B', 20)
         # Padding
-        self.ln(24)
-        self.cell(59)
+        self.ln(28)
+        self.cell(56)
         # title
         
         self.cell(0, 10, 'September 2021', border=False, ln=1, align='L')
@@ -25,22 +25,28 @@ class PDF(FPDF):
         # Page number
         self.cell(0, 10, f'Page {self.page_no()} of {{nb}}', align='C')
 
-# Create FPDF object
-pdf = PDF('P', 'mm', 'A4')
+class Report():
 
-# get total page numbers
-pdf.alias_nb_pages()
+    def create(self):
+        # Create FPDF object
+        pdf = PDF('P', 'mm', 'A4')
 
-# Set auto page break
-pdf.set_auto_page_break(auto=True, margin=15)
+        # get total page numbers
+        pdf.alias_nb_pages()
 
-# Add a page
-pdf.add_page()
+        # Set auto page break
+        pdf.set_auto_page_break(auto=True, margin=15)
 
-# Add text
-pdf.set_font('times', '', 12)
+        # Add a page
+        pdf.add_page()
 
-for i in range(1, 5):
-    pdf.cell(0, 10, f'This is line {i} :)', ln=True)
+        # Add text
+        pdf.set_font('times', '', 12)
 
-pdf.output('output/report.pdf')
+        for i in range(1, 5):
+            pdf.cell(0, 10, f'This is line {i} :)', ln=True)
+
+        pdf.output('output/report.pdf')
+
+report = Report()
+report.create()
