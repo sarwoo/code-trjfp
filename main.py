@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from pandas.core.frame import DataFrame
+# import math
 from prettytable import PrettyTable
 
 data_file_names = ['Intercept_2021.csv', 'Intercept-KPI-Historic-21.csv']
@@ -9,6 +9,7 @@ data_directory = './data/'
 def main():
     data_files = [f'{data_directory}{file}' for file in data_file_names]
     df = fetch_all_data(data_files)
+    df.to_csv('./output/all_data.csv')
     df["Date Intercepted"] = pd.to_datetime(df["Date Intercepted"], dayfirst=True)
     monthly_totals = df.groupby(df['Date Intercepted'].dt.month)['Weight (in grams)'].sum()
     month_list = month_list_names(monthly_totals.index.tolist())
@@ -27,13 +28,14 @@ def plot_year(data, months):
     plt.savefig('./output/year.png')
     plt.show()
 
+
 def print_table(data, month):
     x = PrettyTable()
     x.field_names = ['Month', 'Weight KG', 'Meals saved']
     for i, row in enumerate(data):
-        x.add_row([month[i], f'{int(row/1000):,}', f'{int(row/420):,}'])
+        x.add_row([month[i], f'{round(row/1000):,}', f'{round(row/420):,}'])
     x.add_row(['', '', ''])
-    x.add_row(['Tot', f'{int(sum(data)/1000):,}', f'{int(sum(data)/420):,}'])
+    x.add_row(['Tot', f'{round(sum(data)/1000):,}', f'{round(sum(data)/420):,}'])
     print(x)
 
 def month_list_names(month_nums):
