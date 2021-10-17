@@ -24,7 +24,7 @@ def plot_year(data, months):
     plt.bar(months, data / 1_000_000, color='#335522')
     plt.ylabel("Tonnes")
     plt.title("Monthly Intercepts 2021")
-    plt.savefig('year.png')
+    plt.savefig('./output/year.png')
     plt.show()
 
 def print_table(data, month):
