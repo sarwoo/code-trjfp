@@ -1,7 +1,8 @@
 .DS_Store
+.vscode/settings.json
 data
+output
 venv
 git-commands.txt
-.vscode/settings.json
-output/report.pdf
-year.png
+
+
