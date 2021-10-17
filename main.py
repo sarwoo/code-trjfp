@@ -1,25 +1,25 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from pandas.core.frame import DataFrame
 from prettytable import PrettyTable
 
-file_names = ['Intercept_2021.csv', 'Intercept-KPI-Historic-21']
+data_file_names = ['Intercept_2021.csv', 'Intercept-KPI-Historic-21.csv']
+data_directory = './data/'
 
 def main():
-    df = fetch_all_data()
+    data_files = [f'{data_directory}{file}' for file in data_file_names]
+    df = fetch_all_data(data_files)
     df["Date Intercepted"] = pd.to_datetime(df["Date Intercepted"], dayfirst=True)
     monthly_totals = df.groupby(df['Date Intercepted'].dt.month)['Weight (in grams)'].sum()
     month_list = month_list_names(monthly_totals.index.tolist())
 
     plot_year(monthly_totals, month_list)
-
     print_table(monthly_totals, month_list)
 
+def fetch_all_data(data_files: list):
+    return  pd.concat(map(pd.read_csv, data_files), ignore_index=True)
 
-def fetch_all_data():
-    df_live = pd.read_csv('./data/Intercept_2021.csv')
-    df_historic = pd.read_csv("./data/Intercept-KPI-Historic-21.csv")
-    return pd.concat([df_live, df_historic])
-
+    
 def plot_year(data, months):
     plt.bar(months, data / 1_000_000, color='#335522')
     plt.ylabel("Tonnes")
