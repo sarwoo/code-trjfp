@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-# import math
 from prettytable import PrettyTable
 
 data_file_names = ['Intercept_2021.csv', 'Intercept-KPI-Historic-21.csv']
