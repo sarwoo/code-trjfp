@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from prettytable import PrettyTable
 
@@ -13,20 +14,31 @@ def main():
     monthly_totals = df.groupby(df['Date Intercepted'].dt.month)['Weight (in grams)'].sum()
     month_list = month_list_names(monthly_totals.index.tolist())
 
-    plot_year(monthly_totals, month_list)
+    # plot_year(monthly_totals, month_list)
     print_table(monthly_totals, month_list)
+    print('\n')
+    print_sum_products(df)
 
 def fetch_all_data(data_files: list):
     return  pd.concat(map(pd.read_csv, data_files), ignore_index=True)
 
     
-def plot_year(data, months):
+def plot_year(data, months: list):
     plt.bar(months, data / 1_000_000, color='#335522')
     plt.ylabel("Tonnes")
     plt.title("Monthly Intercepts 2021")
     plt.savefig('./output/year.png')
     plt.show()
 
+def print_sum_products(df_all):
+    x = PrettyTable()
+    x.field_names = ['Product', 'Weight KG']
+    for product in np.sort(df_all['Product'].unique()):
+        total = df_all.loc[df_all['Product'] == product]['Weight (in grams)'].sum()
+        x.add_row([f'{product}', f'{round(total/1_000):,}'])
+        x.align["Product"] = "l"
+    # print(x.get_string(sortby="Product"))
+    print(x)
 
 def print_table(data, month):
     x = PrettyTable()
@@ -35,6 +47,7 @@ def print_table(data, month):
         x.add_row([month[i], f'{round(row/1000):,}', f'{round(row/420):,}'])
     x.add_row(['', '', ''])
     x.add_row(['Tot', f'{round(sum(data)/1000):,}', f'{round(sum(data)/420):,}'])
+
     print(x)
 
 def month_list_names(month_nums):

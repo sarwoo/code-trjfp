@@ -11,7 +11,6 @@ class PDF(FPDF):
         self.ln(24)
         self.cell(59)
         # title
-        
         self.cell(0, 10, 'September 2021', border=False, ln=1, align='L')
         # line break
         self.ln(15)
@@ -30,19 +29,14 @@ class Report():
     def create(self):
         # Create FPDF object
         pdf = PDF('P', 'mm', 'A4')
-
         # get total page numbers
         pdf.alias_nb_pages()
-
         # Set auto page break
         pdf.set_auto_page_break(auto=True, margin=15)
-
         # Add a page
         pdf.add_page()
-
         # Add text
         pdf.set_font('times', '', 12)
-
         for i in range(1, 5):
             pdf.cell(0, 10, f'This is line {i} :)', ln=True)
 
