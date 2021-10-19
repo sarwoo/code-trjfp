@@ -14,7 +14,7 @@ def main():
     monthly_totals = df.groupby(df['Date Intercepted'].dt.month)['Weight (in grams)'].sum()
     month_list = month_list_names(monthly_totals.index.tolist())
 
-    # plot_year(monthly_totals, month_list)
+    plot_year(monthly_totals, month_list)
     print_table(monthly_totals, month_list)
     print('\n')
     print_sum_products(df)
