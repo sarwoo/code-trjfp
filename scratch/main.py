@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 from prettytable import PrettyTable
 
 data_file_names = ['Intercept_2021.csv', 'Intercept-KPI-Historic-21.csv']
-data_directory = './data/'
+data_directory = '../data/'
 
 def main():
     data_files = [f'{data_directory}{file}' for file in data_file_names]
     df = fetch_all_data(data_files)
-    df.to_csv('./output/all_data.csv')
+    df.to_csv('../output/all_data.csv')
     df["Date Intercepted"] = pd.to_datetime(df["Date Intercepted"], dayfirst=True)
     monthly_totals = df.groupby(df['Date Intercepted'].dt.month)['Weight (in grams)'].sum()
     month_list = month_list_names(monthly_totals.index.tolist())
@@ -27,7 +27,7 @@ def plot_year(data, months: list):
     plt.bar(months, data / 1_000_000, color='#335522')
     plt.ylabel("Tonnes")
     plt.title("Monthly Intercepts 2021")
-    plt.savefig('./output/year.png')
+    plt.savefig('../output/year.png')
     plt.show()
 
 def print_sum_products(df_all):
