@@ -1,19 +1,19 @@
-# Class that  defines 
+# Class that  defines the source
 from enum import Enum
 
-class Source:
 
+class Source:
     class Category(Enum):
         HOSPITALITY = 'Hospitality'
         PRIVATE = 'Private'
         RDC = 'RDC'
         RETAIL = 'Retail'
 
-    def __init__(self, name: str, catagory: Category) -> None:
+    def __init__(self, name: str, category: Category) -> None:
         assert type(name) == str
-        assert type(catagory) == Source.Category
+        assert type(category) == Source.Category
         self.__name = name
-        self.__category = catagory.value
+        self.__category = category.value
 
     @property
     def name(self):
@@ -23,9 +23,11 @@ class Source:
     def category(self):
         return self.__category
 
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}('{self.name}', Source.{self.category})"
+
     def save(self):
         with open('data.csv', 'a') as file:
             file.write(f'"{self.name}","{self.category}"\n')
 
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}('{self.name}', Source.{self.category})"
+
